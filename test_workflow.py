@@ -1,56 +1,44 @@
-import asyncio
-import json
-from google.adk.runners import InMemoryRunner
-from google.genai import types
+import pytest
+from app.agent import deterministic_screen, security_redaction, CargoEvent
 
-# Import the workflow to catch any missing imports or syntax issues
-from app.agent import app
-
-async def run_test():
-    print("Initializing InMemoryRunner...")
-    runner = InMemoryRunner(app=app)
-    
-    print("Creating session...")
-    session = await runner.session_service.create_session(
-        app_name="app", user_id="test_user"
+def test_deterministic_screen_auto_approve():
+    cargo = CargoEvent(
+        id="CGO-1", priority="Low", delay_hours=10, 
+        total_value=1000, corporate_buyer="Acme", lat=0, lon=0
     )
-    
-    # High priority event to bypass the fast-path and trigger the whole graph
-    payload = {
-        "id": "CGO-TEST-123",
+    event = deterministic_screen(cargo)
+    assert event.actions.route == "auto_approved"
+    assert event.output["status"] == "auto_approved"
+
+def test_deterministic_screen_needs_review_high_priority():
+    cargo = CargoEvent(
+        id="CGO-2", priority="High", delay_hours=10, 
+        total_value=1000, corporate_buyer="Acme", lat=0, lon=0
+    )
+    event = deterministic_screen(cargo)
+    assert event.actions.route == "needs_review"
+    assert event.output["priority"] == "High"
+
+def test_deterministic_screen_needs_review_high_delay():
+    cargo = CargoEvent(
+        id="CGO-3", priority="Low", delay_hours=48, 
+        total_value=1000, corporate_buyer="Acme", lat=0, lon=0
+    )
+    event = deterministic_screen(cargo)
+    assert event.actions.route == "needs_review"
+
+def test_security_redaction():
+    input_data = {
+        "id": "CGO-4",
         "priority": "High",
         "delay_hours": 48,
-        "total_value": 2500000.0,
-        "corporate_buyer": "Global Logistics Corp",
-        "lat": 35.6895,
-        "lon": 139.6917
+        "total_value": 5000000,
+        "corporate_buyer": "Stark Industries",
+        "lat": 0.0,
+        "lon": 0.0
     }
-    
-    print(f"Sending payload: {payload}")
-    try:
-        async for event in runner.run_async(
-            user_id="test_user",
-            session_id=session.id,
-            new_message=types.Content(role="user", parts=[types.Part.from_text(text=json.dumps(payload))])
-        ):
-            if event.output is not None:
-                print(f"-> Node Output: {event.output}")
-            
-            if type(event).__name__ == "RequestInput":
-                print("\n--- HUMAN IN THE LOOP TRIGGERED ---")
-                print(f"Manager Prompt: {event.message}")
-                print("Simulating Manager Approval: 'Yes'")
-                
-                async for res_evt in runner.run_async(
-                    user_id="test_user",
-                    session_id=session.id,
-                    resume_inputs={event.interrupt_id: "Yes"}
-                ):
-                    if getattr(res_evt, "output", None) is not None:
-                        print(f"-> Resumed Node Output: {res_evt.output}")
-                        
-    except Exception as e:
-        print(f"\n[ERROR] Execution failed: {e}")
-
-if __name__ == "__main__":
-    asyncio.run(run_test())
+    event = security_redaction(input_data)
+    assert event.actions.route == "needs_review"
+    assert event.output["total_value"] == "[REDACTED]"
+    assert event.output["corporate_buyer"] == "[REDACTED]"
+    assert event.output["id"] == "CGO-4" # other fields preserved

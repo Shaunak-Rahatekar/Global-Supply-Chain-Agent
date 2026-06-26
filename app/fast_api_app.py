@@ -46,8 +46,8 @@ app: FastAPI = get_fast_api_app(
     session_service_uri=session_service_uri,
     otel_to_cloud=True,
 )
-app.title = "supply-chain-capstone"
-app.description = "API for interacting with the Agent supply-chain-capstone"
+app.title = "temp-cloud-run"
+app.description = "API for interacting with the Agent temp-cloud-run"
 
 
 @app.post("/feedback")

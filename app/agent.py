@@ -116,7 +116,10 @@ llm_review = LlmAgent(
     output_schema=ReviewOutput,
 )
 
+from google.adk.workflow import node
+
 # Node 5: Human in the Loop (Manager Approval)
+@node(rerun_on_resume=True)
 async def human_approval(ctx: Context, node_input: dict):
     """
     Node 5: Human Approval

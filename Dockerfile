@@ -1,35 +1,27 @@
-# Copyright 2026 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+FROM python:3.10-slim
 
-FROM python:3.12-slim
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends curl build-essential && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir uv==0.8.13
+# Install uv package manager
+RUN pip install uv==0.4.10
 
-WORKDIR /code
+# Set working directory
+WORKDIR /app
 
-COPY ./pyproject.toml ./README.md ./uv.lock* ./
+# Copy dependency files
+COPY pyproject.toml .
+COPY uv.lock .
 
-COPY ./app ./app
+# Install dependencies (system-wide)
+RUN uv sync --no-dev
 
-RUN uv sync --frozen
+# Copy application source
+COPY app/ ./app/
+COPY logistics-mcp/ ./logistics-mcp/
 
-ARG COMMIT_SHA=""
-ENV COMMIT_SHA=${COMMIT_SHA}
-
-ARG AGENT_VERSION=0.0.0
-ENV AGENT_VERSION=${AGENT_VERSION}
-
+# Expose Cloud Run default port
 EXPOSE 8080
 
+# Run the ADK application using uvicorn
 CMD ["uv", "run", "uvicorn", "app.fast_api_app:app", "--host", "0.0.0.0", "--port", "8080"]

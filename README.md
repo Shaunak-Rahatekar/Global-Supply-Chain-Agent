@@ -1,86 +1,69 @@
-# supply-chain-capstone
+# Global Supply Chain ADK Agent (Kaggle Capstone)
 
-Simple ReAct agent
-Agent generated with `agents-cli` version `0.5.1`
+Welcome to the Global Supply Chain Agent repository! This project implements an advanced AI-driven logistics decision engine designed to solve the complex routing and cost-optimization challenges presented in the Kaggle Supply Chain optimization problem.
 
-## Project Structure
+## 🏆 Project Overview (The Problem & Solution)
 
-```
-supply-chain-capstone/
-├── app/         # Core agent code
-│   ├── agent.py               # Main agent logic
-│   └── app_utils/             # App utilities and helpers
-├── tests/                     # Unit, integration, and load tests
-├── GEMINI.md                  # AI-assisted development guide
-└── pyproject.toml             # Project dependencies
-```
+**1. The Kaggle Challenge:** Modern global supply chains face extreme volatility from weather events, geopolitical tensions, and port congestions. This capstone addresses the challenge of dynamically rerouting high-value cargo in real-time to minimize financial loss.
+**2. The Inefficiency of Static Routing:** Traditional systems rely on static logic trees. If a typhoon hits a destination port, human managers often lack the consolidated data (weather + inland alternatives) to make split-second, cost-effective decisions.
+**3. The Solution - Agentic AI:** We developed an autonomous, multi-node AI agent using the Google Agent Development Kit (ADK 2.0). 
+**4. Dynamic Decision Making:** The agent dynamically ingests cargo data, fetches live context via a Model Context Protocol (MCP) server, and utilizes Gemini 1.5 Flash to weigh the cost of delays against the cost of rerouting.
+**5. Security First:** Financial data (e.g., cargo value, corporate buyer) is strictly redacted before being passed to any LLM or external API.
+**6. Human-in-the-Loop (HITL):** High-stakes decisions are never fully autonomous. The workflow pauses to request human approval via a sleek Command UI before executing a reroute.
 
-> 💡 **Tip:** Use [Gemini CLI](https://github.com/google-gemini/gemini-cli) for AI-assisted development - project context is pre-configured in `GEMINI.md`.
+## 🏗️ Architecture & Technical Stack
 
-## Requirements
+**7. ADK 2.0 Workflow Graph:** The core intelligence is built as a stateful Workflow Graph in Python, enabling complex routing based on event state.
+**8. Node 1 - Deterministic Screen:** A fast-path router that auto-approves low-priority/low-delay cargo to save LLM inference costs.
+**9. Node 2 - Security Redaction:** A sanitizer node that strips `total_value` and `corporate_buyer` to prevent PII/Financial leaks.
+**10. Node 3 - MCP Context Fetcher:** Integrates locally with our `logistics-mcp` server to pull maritime weather and alternative inland routes based on the cargo's lat/lon.
+**11. Node 4 - LLM Review (Gemini):** A `LlmAgent` node that ingests the redacted payload + MCP context to generate a structured JSON decision (Wait vs. Reroute) and a cost estimate.
+**12. Node 5 - Human Approval:** Utilizes ADK's `RequestInput` feature to pause the graph execution and wait for human manager approval.
+**13. Model Context Protocol (MCP):** A dedicated local server providing tools (`get_maritime_weather`, `find_alternative_routes`) to securely expose internal logistics data to the agent.
+**14. Vite + React Frontend:** A premium, dark-themed "Logistics Command UI" built with Tailwind CSS and React-Leaflet to visualize the agent's state and trigger HITL approvals.
+**15. Google Cloud Run Deployment:** The backend agent is containerized and deployed as a serverless Cloud Run service using ADK's scaffold infrastructure.
 
-Before you begin, ensure you have:
-- **uv**: Python package manager (used for all dependency management in this project) - [Install](https://docs.astral.sh/uv/getting-started/installation/) ([add packages](https://docs.astral.sh/uv/concepts/dependencies/) with `uv add <package>`)
-- **agents-cli**: Agents CLI - Install with `uv tool install google-agents-cli`
-- **Google Cloud SDK**: For GCP services - [Install](https://cloud.google.com/sdk/docs/install)
+## 🚀 Setup & Installation Instructions
 
+**16. Prerequisites:**
+- Python 3.10+ and `uv` package manager installed.
+- Node.js and `npm` installed.
+- Google Cloud CLI (`gcloud`) authenticated to your project.
+- Gemini API Key.
 
-## Quick Start
-
-Install `agents-cli` and its skills if not already installed:
-
+**17. Backend Setup:**
 ```bash
-uvx google-agents-cli setup
+# Navigate to the project root
+cd supply-chain-capstone
+
+# Install Python dependencies
+uv sync
+
+# Set your environment variables
+echo "GEMINI_API_KEY=your_key_here" > .env
 ```
 
-Install required packages:
+**18. MCP Server Setup:**
+Ensure the `logistics-mcp` server is running or its tools are properly registered in your path, as the agent imports them directly for context fetching.
 
+**19. Frontend Setup:**
 ```bash
-agents-cli install
+# Navigate to the frontend directory
+cd frontend
+
+# Install dependencies
+npm install
+
+# Run the development server
+npm run dev
 ```
+Navigate to `http://localhost:5173` to view the Logistics Command UI.
 
-Test the agent with a local web server:
-
+**20. Evaluation & Testing:**
+To run the automated LLM-as-judge evaluation dataset against the workflow:
 ```bash
-agents-cli playground
+uvx --from google-agents-cli agents-cli eval run --dataset eval.json --config eval.yaml
 ```
-
-You can also use features from the [ADK](https://adk.dev/) CLI with `uv run adk`.
-
-## Commands
-
-| Command              | Description                                                                                 |
-| -------------------- | ------------------------------------------------------------------------------------------- |
-| `agents-cli install` | Install dependencies using uv                                                         |
-| `agents-cli playground` | Launch local development environment                                                  |
-| `agents-cli lint`    | Run code quality checks                                                               |
-| `agents-cli eval`    | Evaluate agent behavior (generate, grade, analyze, and more — see `agents-cli eval --help`) |
-| `uv run pytest tests/unit tests/integration` | Run unit and integration tests                                                        |
-
-## 🛠️ Project Management
-
-| Command | What It Does |
-|---------|--------------|
-| `agents-cli scaffold enhance` | Add CI/CD pipelines and Terraform infrastructure |
-| `agents-cli infra cicd` | One-command setup of entire CI/CD pipeline + infrastructure |
-| `agents-cli scaffold upgrade` | Auto-upgrade to latest version while preserving customizations |
 
 ---
-
-## Development
-
-Edit your agent logic in `app/agent.py` and test with `agents-cli playground` - it auto-reloads on save.
-
-## Deployment
-
-```bash
-gcloud config set project <your-project-id>
-agents-cli deploy
-```
-
-To add CI/CD and Terraform, run `agents-cli scaffold enhance`.
-To set up your production infrastructure, run `agents-cli infra cicd`.
-
-## Observability
-
-Built-in telemetry exports to Cloud Trace, BigQuery, and Cloud Logging.
+*Built with Google ADK 2.0 • Gemini 1.5 • React • Leaflet*
