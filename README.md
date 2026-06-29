@@ -1,10 +1,10 @@
 # Global Supply Chain ADK Agent (V2 Capstone Edition)
 
-Welcome to the **Global Supply Chain Agent** repository! This project implements an advanced, dynamic AI-driven logistics decision engine designed to solve the complex routing and cost-optimization challenges presented in the Kaggle Supply Chain optimization problem.
+Welcome to the **Global Supply Chain Agent** repository! This project implements an advanced, dynamic AI-driven logistics decision engine designed to solve complex routing and cost-optimization challenges in modern global shipping.
 
 ## 🏆 Project Overview (The Problem & Solution)
 
-**1. The Kaggle Challenge:** Modern global supply chains face extreme volatility from weather events, geopolitical tensions, and port congestions. This capstone addresses the challenge of dynamically rerouting high-value cargo in real-time to minimize financial loss.
+**1. The Challenge:** Modern global supply chains face extreme volatility from weather events, geopolitical tensions, and port congestions. This capstone addresses the challenge of dynamically rerouting high-value cargo in real-time to minimize financial loss.
 **2. The Inefficiency of Static Routing:** Traditional systems rely on static logic trees or human dispatchers manually checking weather APIs and calling trucking companies for rates. This is slow and error-prone.
 **3. The Solution - Agentic AI:** We developed an autonomous, multi-node AI agent using the **Google Agent Development Kit (ADK 2.0)**. 
 **4. Dynamic Real-World Data:** The agent dynamically ingests cargo data and fetches live context via a robust Model Context Protocol (MCP) server. 
