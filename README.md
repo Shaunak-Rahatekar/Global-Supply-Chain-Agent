@@ -71,5 +71,45 @@ To run the automated LLM-as-judge evaluation dataset against the workflow logic:
 uvx --from google-agents-cli agents-cli eval run --dataset eval.json --config eval.yaml
 ```
 
+## 🧪 How to Test Locally (Development Mode)
+
+To run the application locally and test the UI and agent interactions:
+
+1. **Start the FastAPI Backend:**
+   Open a terminal in the project root and run:
+   ```bash
+   uv run python app/fast_api_app.py
+   ```
+   *This starts the ADK API server on `http://localhost:8000`.*
+
+2. **Start the React Frontend:**
+   Open a second terminal, navigate to the `frontend` directory, and run:
+   ```bash
+   cd frontend
+   npm run dev
+   ```
+   *This starts the Vite dev server. Navigate to the local URL (usually `http://localhost:5173/app`) to access the dashboard.*
+
+## 🧪 Testing the Agent Scenarios
+
+You can verify the agent's behavior by executing the following test cases in the "New Cargo Event" dashboard:
+
+### Test 1: The "Fast-Path" (Auto-Approval)
+Tests the deterministic screening node that skips the LLM to save inference costs on low-stakes items.
+* **Cargo ID:** `CRG-LOW-101`
+* **Priority:** `Low`
+* **Current Position:** Search and select `Miami`
+* **Destination Port:** Search and select `Houston`
+* **Expected Result:** The agent skips the LLM and instantly routes you to a green **"Auto-Approved"** success screen.
+
+### Test 2: The "High-Stakes Reroute" (LLM & MCP Action)
+Tests the security redaction, MCP live tools (Weather, Congestion, OSRM Routing), the Gemini 2.5 LLM context analysis, and the HITL dashboard.
+* **Cargo ID:** `CRG-CRITICAL-999`
+* **Total Value ($):** `8500000`
+* **Priority:** `Critical`
+* **Current Position:** Search and select `Shanghai`
+* **Destination Port:** Search and select `Los Angeles`
+* **Expected Result:** The workflow pauses. You are redirected to the **Approval Dashboard** showing Live Weather, Port Congestion, and two comparative LLM route proposals (Cheapest vs Fastest route) powered by the OSRM APIs. Click one and hit **Approve Selected** to finish!
+
 ---
 *Built with Google ADK 2.0 • Gemini 2.5 • React • OSRM Routing*

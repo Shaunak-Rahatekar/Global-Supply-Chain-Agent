@@ -41,7 +41,7 @@ export async function runAgentWorkflow(sessionId, cargoData, onPause, onComplete
   };
 
   try {
-    const url = `/apps/${APP_NAME}/users/${USER_ID}/sessions/${sessionId}/run`;
+    const url = `/run_sse`;
     const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -160,7 +160,7 @@ export async function resumeWorkflow(sessionId, decision) {
     streaming: true
   };
 
-  const url = `/apps/${APP_NAME}/users/${USER_ID}/sessions/${sessionId}/run`;
+  const url = `/run_sse`;
   const response = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
