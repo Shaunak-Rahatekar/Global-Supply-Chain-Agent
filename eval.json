@@ -1,0 +1,37 @@
+{
+  "eval_cases": [
+    {
+      "eval_case_id": "case_1_auto_approve",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "{\"id\":\"CGO-EVAL-1\",\"priority\":\"Low\",\"delay_hours\":12,\"total_value\":15000.0,\"corporate_buyer\":\"Acme Corp\",\"lat\":34.0522,\"lon\":-118.2437}"
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "case_2_high_priority_reroute",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "{\"id\":\"CGO-EVAL-2\",\"priority\":\"High\",\"delay_hours\":48,\"total_value\":2500000.0,\"corporate_buyer\":\"Global Logistics\",\"lat\":35.6895,\"lon\":139.6917}"
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "case_3_high_priority_wait",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "{\"id\":\"CGO-EVAL-3\",\"priority\":\"High\",\"delay_hours\":2,\"total_value\":3000000.0,\"corporate_buyer\":\"Tech Solutions\",\"lat\":25.7617,\"lon\":-80.1918}"
+          }
+        ]
+      }
+    }
+  ]
+}

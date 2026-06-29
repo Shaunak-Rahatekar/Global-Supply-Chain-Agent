@@ -1,0 +1,517 @@
+{
+  "eval_case_results": [
+    {
+      "eval_case_index": 0,
+      "response_candidate_results": [
+        {
+          "response_index": 0,
+          "metric_results": {
+            "cost_effective_routing": {
+              "metric_name": "cost_effective_routing",
+              "score": null,
+              "explanation": null,
+              "rubric_verdicts": null,
+              "raw_output": null,
+              "error_message": "Response content missing for candidate 0."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "eval_case_index": 1,
+      "response_candidate_results": [
+        {
+          "response_index": 0,
+          "metric_results": {
+            "cost_effective_routing": {
+              "metric_name": "cost_effective_routing",
+              "score": null,
+              "explanation": null,
+              "rubric_verdicts": null,
+              "raw_output": null,
+              "error_message": "Response content missing for candidate 0."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "eval_case_index": 2,
+      "response_candidate_results": [
+        {
+          "response_index": 0,
+          "metric_results": {
+            "cost_effective_routing": {
+              "metric_name": "cost_effective_routing",
+              "score": null,
+              "explanation": null,
+              "rubric_verdicts": null,
+              "raw_output": null,
+              "error_message": "Response content missing for candidate 0."
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "summary_metrics": [
+    {
+      "metric_name": "cost_effective_routing",
+      "num_cases_total": 3,
+      "num_cases_valid": 0,
+      "num_cases_error": 3,
+      "mean_score": null,
+      "stdev_score": null,
+      "pass_rate": null
+    }
+  ],
+  "win_rates": null,
+  "evaluation_dataset": [
+    {
+      "bigquery_source": null,
+      "gcs_source": null,
+      "eval_cases": [
+        {
+          "prompt": {
+            "parts": [
+              {
+                "media_resolution": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "file_data": null,
+                "function_call": null,
+                "function_response": null,
+                "inline_data": null,
+                "text": "{\"id\":\"CGO-EVAL-1\",\"priority\":\"Low\",\"delay_hours\":12,\"total_value\":15000.0,\"corporate_buyer\":\"Acme Corp\",\"lat\":34.0522,\"lon\":-118.2437}",
+                "thought": null,
+                "thought_signature": null,
+                "video_metadata": null,
+                "tool_call": null,
+                "tool_response": null,
+                "part_metadata": null
+              }
+            ],
+            "role": "user"
+          },
+          "responses": null,
+          "reference": null,
+          "system_instruction": null,
+          "conversation_history": null,
+          "rubric_groups": null,
+          "eval_case_id": "case_1_auto_approve",
+          "intermediate_events": null,
+          "agent_info": null,
+          "agent_data": {
+            "agents": null,
+            "turns": [
+              {
+                "turn_index": null,
+                "turn_id": null,
+                "events": [
+                  {
+                    "author": "system",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": "Node: deterministic_screen -> Auto-Approved",
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null
+                        }
+                      ],
+                      "role": null
+                    },
+                    "event_time": null,
+                    "state_delta": null,
+                    "active_tools": null
+                  }
+                ]
+              }
+            ]
+          },
+          "user_scenario": null,
+          "response": {
+            "role": "model",
+            "parts": [
+              {
+                "text": "{\"status\": \"auto_approved\", \"reason\": \"Low priority, short delay\", \"id\": \"CGO-EVAL-1\"}"
+              }
+            ]
+          }
+        },
+        {
+          "prompt": {
+            "parts": [
+              {
+                "media_resolution": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "file_data": null,
+                "function_call": null,
+                "function_response": null,
+                "inline_data": null,
+                "text": "{\"id\":\"CGO-EVAL-2\",\"priority\":\"High\",\"delay_hours\":48,\"total_value\":2500000.0,\"corporate_buyer\":\"Global Logistics\",\"lat\":35.6895,\"lon\":139.6917}",
+                "thought": null,
+                "thought_signature": null,
+                "video_metadata": null,
+                "tool_call": null,
+                "tool_response": null,
+                "part_metadata": null
+              }
+            ],
+            "role": "user"
+          },
+          "responses": null,
+          "reference": null,
+          "system_instruction": null,
+          "conversation_history": null,
+          "rubric_groups": null,
+          "eval_case_id": "case_2_high_priority_reroute",
+          "intermediate_events": null,
+          "agent_info": null,
+          "agent_data": {
+            "agents": null,
+            "turns": [
+              {
+                "turn_index": null,
+                "turn_id": null,
+                "events": [
+                  {
+                    "author": "system",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": "Node: deterministic_screen -> Needs Review",
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null
+                        }
+                      ],
+                      "role": null
+                    },
+                    "event_time": null,
+                    "state_delta": null,
+                    "active_tools": null
+                  },
+                  {
+                    "author": "system",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": "Node: security_redaction -> Redacted Data: {\"id\": \"CGO-EVAL-2\", \"priority\": \"High\", \"delay_hours\": 48, \"total_value\": \"[REDACTED]\", \"corporate_buyer\": \"[REDACTED]\", \"lat\": 35.6895, \"lon\": 139.6917}",
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null
+                        }
+                      ],
+                      "role": null
+                    },
+                    "event_time": null,
+                    "state_delta": null,
+                    "active_tools": null
+                  },
+                  {
+                    "author": "system",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": "Node: mcp_fetch_context -> Context: {\"weather\": \"Severe Typhoon\", \"routes\": \"Rail alternative available ($5000)\"}",
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null
+                        }
+                      ],
+                      "role": null
+                    },
+                    "event_time": null,
+                    "state_delta": null,
+                    "active_tools": null
+                  },
+                  {
+                    "author": "system",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": "Node: llm_review -> Decision: {\"action\": \"Reroute\", \"cost_estimate\": 5000}",
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null
+                        }
+                      ],
+                      "role": null
+                    },
+                    "event_time": null,
+                    "state_delta": null,
+                    "active_tools": null
+                  }
+                ]
+              }
+            ]
+          },
+          "user_scenario": null,
+          "response": {
+            "role": "model",
+            "parts": [
+              {
+                "text": "LLM proposed action: Reroute with estimated cost: $5000."
+              }
+            ]
+          }
+        },
+        {
+          "prompt": {
+            "parts": [
+              {
+                "media_resolution": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "file_data": null,
+                "function_call": null,
+                "function_response": null,
+                "inline_data": null,
+                "text": "{\"id\":\"CGO-EVAL-3\",\"priority\":\"High\",\"delay_hours\":2,\"total_value\":3000000.0,\"corporate_buyer\":\"Tech Solutions\",\"lat\":25.7617,\"lon\":-80.1918}",
+                "thought": null,
+                "thought_signature": null,
+                "video_metadata": null,
+                "tool_call": null,
+                "tool_response": null,
+                "part_metadata": null
+              }
+            ],
+            "role": "user"
+          },
+          "responses": null,
+          "reference": null,
+          "system_instruction": null,
+          "conversation_history": null,
+          "rubric_groups": null,
+          "eval_case_id": "case_3_high_priority_wait",
+          "intermediate_events": null,
+          "agent_info": null,
+          "agent_data": {
+            "agents": null,
+            "turns": [
+              {
+                "turn_index": null,
+                "turn_id": null,
+                "events": [
+                  {
+                    "author": "system",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": "Node: deterministic_screen -> Needs Review",
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null
+                        }
+                      ],
+                      "role": null
+                    },
+                    "event_time": null,
+                    "state_delta": null,
+                    "active_tools": null
+                  },
+                  {
+                    "author": "system",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": "Node: security_redaction -> Redacted Data: {\"id\": \"CGO-EVAL-3\", \"priority\": \"High\", \"delay_hours\": 2, \"total_value\": \"[REDACTED]\", \"corporate_buyer\": \"[REDACTED]\", \"lat\": 25.7617, \"lon\": -80.1918}",
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null
+                        }
+                      ],
+                      "role": null
+                    },
+                    "event_time": null,
+                    "state_delta": null,
+                    "active_tools": null
+                  },
+                  {
+                    "author": "system",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": "Node: mcp_fetch_context -> Context: {\"weather\": \"Clear skies\", \"routes\": \"Wait at port ($1000)\"}",
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null
+                        }
+                      ],
+                      "role": null
+                    },
+                    "event_time": null,
+                    "state_delta": null,
+                    "active_tools": null
+                  },
+                  {
+                    "author": "system",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": "Node: llm_review -> Decision: {\"action\": \"Wait\", \"cost_estimate\": 1000}",
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null
+                        }
+                      ],
+                      "role": null
+                    },
+                    "event_time": null,
+                    "state_delta": null,
+                    "active_tools": null
+                  }
+                ]
+              }
+            ]
+          },
+          "user_scenario": null,
+          "response": {
+            "role": "model",
+            "parts": [
+              {
+                "text": "LLM proposed action: Wait with estimated cost: $1000."
+              }
+            ]
+          }
+        }
+      ],
+      "eval_dataset_df": null,
+      "candidate_name": null
+    }
+  ],
+  "metadata": {
+    "candidate_names": [
+      "candidate_1"
+    ],
+    "dataset_name": null,
+    "dataset_id": null,
+    "creation_timestamp": "2026-06-26T17:25:51.568098Z",
+    "dataset": [
+      {
+        "prompt_display_text": "{\"id\":\"CGO-EVAL-1\",\"priority\":\"Low\",\"delay_hours\":12,\"total_value\":15000.0,\"corporate_buyer\":\"Acme Corp\",\"lat\":34.0522,\"lon\":-118.2437}",
+        "prompt_raw_json": "{\n  \"parts\": [\n    {\n      \"text\": \"{\\\"id\\\":\\\"CGO-EVAL-1\\\",\\\"priority\\\":\\\"Low\\\",\\\"delay_hours\\\":12,\\\"total_value\\\":15000.0,\\\"corporate_buyer\\\":\\\"Acme Corp\\\",\\\"lat\\\":34.0522,\\\"lon\\\":-118.2437}\"\n    }\n  ],\n  \"role\": \"user\"\n}",
+        "reference": "",
+        "reference_raw_json": "",
+        "response_display_text": "",
+        "response_raw_json": "",
+        "intermediate_events": null,
+        "agent_data": "{\"turns\": [{\"events\": [{\"author\": \"system\", \"content\": {\"parts\": [{\"text\": \"Node: deterministic_screen -> Auto-Approved\"}]}}]}]}"
+      },
+      {
+        "prompt_display_text": "{\"id\":\"CGO-EVAL-2\",\"priority\":\"High\",\"delay_hours\":48,\"total_value\":2500000.0,\"corporate_buyer\":\"Global Logistics\",\"lat\":35.6895,\"lon\":139.6917}",
+        "prompt_raw_json": "{\n  \"parts\": [\n    {\n      \"text\": \"{\\\"id\\\":\\\"CGO-EVAL-2\\\",\\\"priority\\\":\\\"High\\\",\\\"delay_hours\\\":48,\\\"total_value\\\":2500000.0,\\\"corporate_buyer\\\":\\\"Global Logistics\\\",\\\"lat\\\":35.6895,\\\"lon\\\":139.6917}\"\n    }\n  ],\n  \"role\": \"user\"\n}",
+        "reference": "",
+        "reference_raw_json": "",
+        "response_display_text": "",
+        "response_raw_json": "",
+        "intermediate_events": null,
+        "agent_data": "{\"turns\": [{\"events\": [{\"author\": \"system\", \"content\": {\"parts\": [{\"text\": \"Node: deterministic_screen -> Needs Review\"}]}}, {\"author\": \"system\", \"content\": {\"parts\": [{\"text\": \"Node: security_redaction -> Redacted Data: {\\\"id\\\": \\\"CGO-EVAL-2\\\", \\\"priority\\\": \\\"High\\\", \\\"delay_hours\\\": 48, \\\"total_value\\\": \\\"[REDACTED]\\\", \\\"corporate_buyer\\\": \\\"[REDACTED]\\\", \\\"lat\\\": 35.6895, \\\"lon\\\": 139.6917}\"}]}}, {\"author\": \"system\", \"content\": {\"parts\": [{\"text\": \"Node: mcp_fetch_context -> Context: {\\\"weather\\\": \\\"Severe Typhoon\\\", \\\"routes\\\": \\\"Rail alternative available ($5000)\\\"}\"}]}}, {\"author\": \"system\", \"content\": {\"parts\": [{\"text\": \"Node: llm_review -> Decision: {\\\"action\\\": \\\"Reroute\\\", \\\"cost_estimate\\\": 5000}\"}]}}]}]}"
+      },
+      {
+        "prompt_display_text": "{\"id\":\"CGO-EVAL-3\",\"priority\":\"High\",\"delay_hours\":2,\"total_value\":3000000.0,\"corporate_buyer\":\"Tech Solutions\",\"lat\":25.7617,\"lon\":-80.1918}",
+        "prompt_raw_json": "{\n  \"parts\": [\n    {\n      \"text\": \"{\\\"id\\\":\\\"CGO-EVAL-3\\\",\\\"priority\\\":\\\"High\\\",\\\"delay_hours\\\":2,\\\"total_value\\\":3000000.0,\\\"corporate_buyer\\\":\\\"Tech Solutions\\\",\\\"lat\\\":25.7617,\\\"lon\\\":-80.1918}\"\n    }\n  ],\n  \"role\": \"user\"\n}",
+        "reference": "",
+        "reference_raw_json": "",
+        "response_display_text": "",
+        "response_raw_json": "",
+        "intermediate_events": null,
+        "agent_data": "{\"turns\": [{\"events\": [{\"author\": \"system\", \"content\": {\"parts\": [{\"text\": \"Node: deterministic_screen -> Needs Review\"}]}}, {\"author\": \"system\", \"content\": {\"parts\": [{\"text\": \"Node: security_redaction -> Redacted Data: {\\\"id\\\": \\\"CGO-EVAL-3\\\", \\\"priority\\\": \\\"High\\\", \\\"delay_hours\\\": 2, \\\"total_value\\\": \\\"[REDACTED]\\\", \\\"corporate_buyer\\\": \\\"[REDACTED]\\\", \\\"lat\\\": 25.7617, \\\"lon\\\": -80.1918}\"}]}}, {\"author\": \"system\", \"content\": {\"parts\": [{\"text\": \"Node: mcp_fetch_context -> Context: {\\\"weather\\\": \\\"Clear skies\\\", \\\"routes\\\": \\\"Wait at port ($1000)\\\"}\"}]}}, {\"author\": \"system\", \"content\": {\"parts\": [{\"text\": \"Node: llm_review -> Decision: {\\\"action\\\": \\\"Wait\\\", \\\"cost_estimate\\\": 1000}\"}]}}]}]}"
+      }
+    ]
+  },
+  "agent_info": null
+}

@@ -1,0 +1,20 @@
+metrics_to_run:
+  - cost_effective_routing
+
+custom_metrics:
+  - name: cost_effective_routing
+    prompt_template: |
+      You are an expert logistics and supply chain judge. Evaluate if the agent made the most cost-effective and logical routing choice based on the scenario constraints.
+      
+      Input Scenario (JSON string in text): {prompt}
+      Agent's Final Action/Decision: {response}
+      Full Execution Trace (shows tool calls and intermediate steps): {agent_data}
+      
+      Grading Rubric:
+      - If the cargo is 'Low' priority with 'delay_hours' < 24, the agent must auto-approve. (Score 5 if it did, 1 if it wasted LLM/MCP resources).
+      - If the cargo is 'High' priority and faces significant delays (e.g., >24h due to weather), the agent must recommend "Reroute" to the cheapest viable alternative route found in the MCP context.
+      - If the delay is minor or wait cost is lower than reroute cost, the agent must recommend "Wait".
+      - The agent's reasoning must be logically grounded in the trace data.
+      
+      Provide a score from 1 to 5.
+      Return exactly this JSON format: {"score": <1|2|3|4|5>, "explanation": "<your detailed reasoning>"}

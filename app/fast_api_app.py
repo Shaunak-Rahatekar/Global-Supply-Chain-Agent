@@ -38,6 +38,9 @@ session_service_uri = None
 
 artifact_service_uri = f"gs://{logs_bucket_name}" if logs_bucket_name else None
 
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
 app: FastAPI = get_fast_api_app(
     agents_dir=AGENT_DIR,
     web=True,
@@ -48,6 +51,25 @@ app: FastAPI = get_fast_api_app(
 )
 app.title = "temp-cloud-run"
 app.description = "API for interacting with the Agent temp-cloud-run"
+
+# Mount the frontend React app at /app to not conflict with ADK Dev UI at /
+frontend_dist = os.path.join(AGENT_DIR, "frontend", "dist")
+if os.path.exists(frontend_dist):
+    app.mount("/app/assets", StaticFiles(directory=os.path.join(frontend_dist, "assets")), name="assets")
+    
+    @app.get("/app/{full_path:path}")
+    async def serve_frontend(full_path: str):
+        # Serve static files if they exist (e.g. index.css, vite.svg)
+        file_path = os.path.join(frontend_dist, full_path)
+        if os.path.exists(file_path) and os.path.isfile(file_path):
+            return FileResponse(file_path)
+        # Fallback to index.html for SPA routing
+        return FileResponse(os.path.join(frontend_dist, "index.html"))
+    
+    @app.get("/app")
+    async def serve_frontend_root():
+        return FileResponse(os.path.join(frontend_dist, "index.html"))
+
 
 
 @app.post("/feedback")

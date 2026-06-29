@@ -1,0 +1,175 @@
+{
+  "eval_cases": [
+    {
+      "eval_case_id": "case_1_auto_approve",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "{\"id\":\"CGO-EVAL-1\",\"priority\":\"Low\",\"delay_hours\":12,\"total_value\":15000.0,\"corporate_buyer\":\"Acme Corp\",\"lat\":34.0522,\"lon\":-118.2437}"
+          }
+        ]
+      },
+      "response": {
+        "role": "model",
+        "parts": [
+          {
+            "text": "{\"status\": \"auto_approved\", \"reason\": \"Low priority, short delay\", \"id\": \"CGO-EVAL-1\"}"
+          }
+        ]
+      },
+      "agent_data": {
+        "turns": [
+          {
+            "events": [
+              {
+                "author": "system",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "Node: deterministic_screen -> Auto-Approved"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "case_2_high_priority_reroute",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "{\"id\":\"CGO-EVAL-2\",\"priority\":\"High\",\"delay_hours\":48,\"total_value\":2500000.0,\"corporate_buyer\":\"Global Logistics\",\"lat\":35.6895,\"lon\":139.6917}"
+          }
+        ]
+      },
+      "response": {
+        "role": "model",
+        "parts": [
+          {
+            "text": "LLM proposed action: Reroute with estimated cost: $5000."
+          }
+        ]
+      },
+      "agent_data": {
+        "turns": [
+          {
+            "events": [
+              {
+                "author": "system",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "Node: deterministic_screen -> Needs Review"
+                    }
+                  ]
+                }
+              },
+              {
+                "author": "system",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "Node: security_redaction -> Redacted Data: {\"id\": \"CGO-EVAL-2\", \"priority\": \"High\", \"delay_hours\": 48, \"total_value\": \"[REDACTED]\", \"corporate_buyer\": \"[REDACTED]\", \"lat\": 35.6895, \"lon\": 139.6917}"
+                    }
+                  ]
+                }
+              },
+              {
+                "author": "system",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "Node: mcp_fetch_context -> Context: {\"weather\": \"Severe Typhoon\", \"routes\": \"Rail alternative available ($5000)\"}"
+                    }
+                  ]
+                }
+              },
+              {
+                "author": "system",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "Node: llm_review -> Decision: {\"action\": \"Reroute\", \"cost_estimate\": 5000}"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "case_3_high_priority_wait",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "{\"id\":\"CGO-EVAL-3\",\"priority\":\"High\",\"delay_hours\":2,\"total_value\":3000000.0,\"corporate_buyer\":\"Tech Solutions\",\"lat\":25.7617,\"lon\":-80.1918}"
+          }
+        ]
+      },
+      "response": {
+        "role": "model",
+        "parts": [
+          {
+            "text": "LLM proposed action: Wait with estimated cost: $1000."
+          }
+        ]
+      },
+      "agent_data": {
+        "turns": [
+          {
+            "events": [
+              {
+                "author": "system",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "Node: deterministic_screen -> Needs Review"
+                    }
+                  ]
+                }
+              },
+              {
+                "author": "system",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "Node: security_redaction -> Redacted Data: {\"id\": \"CGO-EVAL-3\", \"priority\": \"High\", \"delay_hours\": 2, \"total_value\": \"[REDACTED]\", \"corporate_buyer\": \"[REDACTED]\", \"lat\": 25.7617, \"lon\": -80.1918}"
+                    }
+                  ]
+                }
+              },
+              {
+                "author": "system",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "Node: mcp_fetch_context -> Context: {\"weather\": \"Clear skies\", \"routes\": \"Wait at port ($1000)\"}"
+                    }
+                  ]
+                }
+              },
+              {
+                "author": "system",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "Node: llm_review -> Decision: {\"action\": \"Wait\", \"cost_estimate\": 1000}"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
